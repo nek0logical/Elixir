@@ -36,4 +36,18 @@ defmodule EngineMonitor do
   # Base Case 3 -> No danger reading, more readings to check
   def danger?([_head | tail]), do: danger?(tail)
 
+
+  def fire?(string), do: String.upcase(string, :ascii) |> String.contains?("FIRE")
+
+  # decode/1 - output word made up of first letter of each word in input string
+
+  # Wrapper - accept input string, split into list of words, assuming words seperated by whitespace
+  def decode(string) when is_binary(string), do: String.split(string, " ") |> decode()
+
+  # Base Case 1 -> One word in list, return first letter
+  def decode([head | []]), do: String.first(head)
+
+  # Base Case 2 -> More words in list to get
+  def decode([head | tail]), do: String.first(head) <> decode(tail)
+
 end
